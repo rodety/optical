@@ -1,0 +1,31 @@
+#ifndef UI_LOGIN_H
+#define UI_LOGIN_H
+
+#include <QWidget>
+#include "mainwindow.h"
+#include "ui_cambiarpassdialog.h"
+#include "sesion.h"
+#include <QMessageBox>
+#include <QDesktopWidget>
+
+namespace Ui {
+class UI_LOGIN;
+}
+
+class UI_LOGIN : public QWidget
+{
+    Q_OBJECT
+    
+public:
+    explicit UI_LOGIN(QWidget *parent = 0);
+    ~UI_LOGIN();
+    
+private slots:
+    void on_pushButton_Aceptar_clicked();
+    void on_pushButton_Cancelar_clicked();
+
+private:
+    Ui::UI_LOGIN *ui;
+};
+
+#endif // UI_LOGIN_H
