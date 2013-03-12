@@ -18,6 +18,9 @@ ui_agregarOtros::ui_agregarOtros(QWidget *parent) :
     ui->comboBox_estado->setTipo("estado");
     ui->comboBox_estado->ActualizarItems(estado::mostrar());
     modo=0;
+    ui->label_estado->hide();
+    ui->comboBox_estado->hide();
+    ui->pushButton_xestado->hide();
 }
 
 ui_agregarOtros::~ui_agregarOtros()
@@ -46,6 +49,9 @@ void ui_agregarOtros::setOtros(otros* o)
     ui->comboBox_color->buscarValor(pOtros.getColor().getNombre());
     ui->comboBox_talla->buscarValor(pOtros.getTalla().getNombre());
     ui->comboBox_calidad->buscarValor(pOtros.getCalidad().getNombre());
+    ui->label_estado->show();
+    ui->comboBox_estado->show();
+    ui->pushButton_xestado->show();
 }
 
 bool ui_agregarOtros::verificarRestricciones()
@@ -141,13 +147,14 @@ bool ui_agregarOtros::verificarRestricciones()
         ui->comboBox_talla->setFocus();
         return false;
     }
-    if(!ui->comboBox_estado->selecciono())
-    {
-        box.setText("Seleccione algun Estado");
-        box.exec();
-        ui->comboBox_estado->setFocus();
-        return false;
-    }
+    if(modo==1)
+        if(!ui->comboBox_estado->selecciono())
+        {
+            box.setText("Seleccione algun Estado");
+            box.exec();
+            ui->comboBox_estado->setFocus();
+            return false;
+        }
     return true;
 }
 
@@ -177,6 +184,8 @@ void ui_agregarOtros::on_pushButton_agregar_clicked()
     pOtros.setCalidad(pCalidad);
     if(modo==0)//agrego
     {
+        pEstado.setNombre("activo");pEstado.completar();
+        pOtros.setEstado(pEstado);
         if(pOtros.agregar())
         {
             this->close();
@@ -211,4 +220,29 @@ void ui_agregarOtros::on_pushButton_agregar_clicked()
             box.exec();
         }
     }
+}
+
+void ui_agregarOtros::on_pushButton_xmarca_clicked()
+{
+    ui->comboBox_marca->eliminar();
+}
+
+void ui_agregarOtros::on_pushButton_xcalidad_clicked()
+{
+    ui->comboBox_calidad->eliminar();
+}
+
+void ui_agregarOtros::on_pushButton_xcolor_clicked()
+{
+    ui->comboBox_color->eliminar();
+}
+
+void ui_agregarOtros::on_pushButton_xestado_clicked()
+{
+    ui->comboBox_estado->eliminar();
+}
+
+void ui_agregarOtros::on_pushButton_xtalla_clicked()
+{
+    ui->comboBox_talla->eliminar();
 }

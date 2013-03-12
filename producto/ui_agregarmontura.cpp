@@ -20,6 +20,10 @@ ui_agregarMontura::ui_agregarMontura(QWidget *parent) :
     ui->comboBox_estado->setTipo("estado");
     ui->comboBox_estado->ActualizarItems(estado::mostrar());
     modo=0;
+
+    ui->label_estado->hide();
+    ui->comboBox_estado->hide();
+    ui->pushButton_xestado->hide();
 }
 
 ui_agregarMontura::~ui_agregarMontura()
@@ -49,6 +53,9 @@ void ui_agregarMontura::setMontura(montura* m)
     ui->comboBox_color->buscarValor(pMontura.getColor().getNombre());
     ui->comboBox_tamanio->buscarValor(pMontura.getTamanio().getNombre());
     ui->comboBox_calidad->buscarValor(pMontura.getCalidad().getNombre());
+    ui->label_estado->show();
+    ui->comboBox_estado->show();
+    ui->pushButton_xestado->show();
 }
 
 bool ui_agregarMontura::verificarRestricciones()
@@ -65,13 +72,6 @@ bool ui_agregarMontura::verificarRestricciones()
         box.setText("El Codigo es obligatorio");
         box.exec();
         ui->lineEdit_codigo->setFocus();
-        return false;
-    }
-    if(ui->lineEdit_descripcion->text().size() == 0)
-    {
-        box.setText("La Descripcion es obligatoria");
-        box.exec();
-        ui->lineEdit_descripcion->setFocus();
         return false;
     }
     if(ui->lineEdit_precioCompra->text().contains(noNumeros))
@@ -151,13 +151,14 @@ bool ui_agregarMontura::verificarRestricciones()
         ui->comboBox_color->setFocus();
         return false;
     }
-    if(!ui->comboBox_estado->selecciono())
-    {
-        box.setText("Seleccione algun Estado");
-        box.exec();
-        ui->comboBox_estado->setFocus();
-        return false;
-    }
+    if(modo==1)
+        if(!ui->comboBox_estado->selecciono())
+        {
+            box.setText("Seleccione algun Estado");
+            box.exec();
+            ui->comboBox_estado->setFocus();
+            return false;
+        }
     return true;
 }
 
@@ -189,6 +190,8 @@ void ui_agregarMontura::on_pushButton_agregar_clicked()
     pMontura.setCalidad(pCalidad);
     if(modo==0)//agrego
     {
+        pEstado.setNombre("activo");pEstado.completar();
+        pMontura.setEstado(pEstado);
         if(pMontura.agregar())
         {
             this->close();

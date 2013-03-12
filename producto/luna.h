@@ -12,7 +12,6 @@ private:
     tratamiento pTratamiento;
     QString valorInicial;
     QString valorFinal;
-    QString lado;
     QString precio;
 public:
     luna();
@@ -23,7 +22,6 @@ public:
     tratamiento getTratamiento();
     QString getValorInicial();
     QString getValorFinal();
-    QString getLado();
     QString getPrecio();
 
     void setDiametro(diametro tmp);
@@ -32,7 +30,6 @@ public:
     void setTratamiento(tratamiento tmp);
     void setValorInicial(QString tmp);
     void setValorFinal(QString tmp);
-    void setLado(QString tmp);
     void setPrecio(QString tmp);
 
     bool agregar();

@@ -24,6 +24,10 @@ ui_agregarLente::ui_agregarLente(QWidget *parent) :
     ui->comboBox_estado->setTipo("estado");
     ui->comboBox_estado->ActualizarItems(estado::mostrar());
     modo=0;
+
+    ui->label_estado->hide();
+    ui->comboBox_estado->hide();
+    ui->pushButton_xEstado->hide();
 }
 
 ui_agregarLente::~ui_agregarLente()
@@ -59,6 +63,9 @@ void ui_agregarLente::setLenteContacto(lenteContacto *l)
     ui->comboBox_diametro->buscarValor(pLenteContacto.getDiametro().getValor());
     ui->comboBox_tiempoUso->buscarValor(pLenteContacto.getTiempoUso().getValor());
     ui->comboBox_material->buscarValor(pLenteContacto.getMaterial().getNombre());
+    ui->label_estado->show();
+    ui->comboBox_estado->show();
+    ui->pushButton_xEstado->show();
 }
 
 bool ui_agregarLente::verificarRestricciones()
@@ -75,13 +82,6 @@ bool ui_agregarLente::verificarRestricciones()
         box.setText("El Codigo es obligatorio");
         box.exec();
         ui->lineEdit_codigo->setFocus();
-        return false;
-    }
-    if(ui->lineEdit_descripcion->text().size() == 0)
-    {
-        box.setText("La Descripcion es obligatoria");
-        box.exec();
-        ui->lineEdit_descripcion->setFocus();
         return false;
     }
     if(ui->lineEdit_precioCompra->text().contains(noNumeros))
@@ -133,13 +133,14 @@ bool ui_agregarLente::verificarRestricciones()
         ui->comboBox_marca->setFocus();
         return false;
     }
-    if(!ui->comboBox_estado->selecciono())
-    {
-        box.setText("Seleccione algun Estado");
-        box.exec();
-        ui->comboBox_estado->setFocus();
-        return false;
-    }
+    if(modo==1)
+        if(!ui->comboBox_estado->selecciono())
+        {
+            box.setText("Seleccione algun Estado");
+            box.exec();
+            ui->comboBox_estado->setFocus();
+            return false;
+        }
     if(ui->lineEdit_presentacion->text().size() == 0)
     {
         box.setText("La Presentacion es obligatoria");
@@ -244,6 +245,8 @@ void ui_agregarLente::on_pushButton_aceptar_clicked()
     pLenteContacto.setMaterial(pMaterial);
     if(modo==0)//agrego
     {
+        pEstado.setNombre("activo");pEstado.completar();
+        pLenteContacto.setEstado(pEstado);
         if(pLenteContacto.agregar())
         {
             this->close();
@@ -278,4 +281,44 @@ void ui_agregarLente::on_pushButton_aceptar_clicked()
             box.exec();
         }
     }
+}
+
+void ui_agregarLente::on_pushButton_xMarca_clicked()
+{
+    ui->comboBox_marca->eliminar();
+}
+
+void ui_agregarLente::on_pushButton_xTipoLente_clicked()
+{
+    ui->comboBox_tipoLente->eliminar();
+}
+
+void ui_agregarLente::on_pushButton_xPotencia_clicked()
+{
+    ui->comboBox_potencia->eliminar();
+}
+
+void ui_agregarLente::on_pushButton_xCurvaBase_clicked()
+{
+    ui->comboBox_curvaBase->eliminar();
+}
+
+void ui_agregarLente::on_pushButton_xDiametro_clicked()
+{
+    ui->comboBox_diametro->eliminar();
+}
+
+void ui_agregarLente::on_pushButton_xTiempoUso_clicked()
+{
+    ui->comboBox_tiempoUso->eliminar();
+}
+
+void ui_agregarLente::on_pushButton_xMaterial_clicked()
+{
+    ui->comboBox_material->eliminar();
+}
+
+void ui_agregarLente::on_pushButton_xEstado_clicked()
+{
+    ui->comboBox_estado->eliminar();
 }

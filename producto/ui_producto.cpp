@@ -20,7 +20,6 @@ ui_producto::ui_producto(QWidget *parent) :
     pag=0;
     connect(ui->tableView_productos, SIGNAL (doubleClicked (const QModelIndex & )), this, SLOT (agregar_etiqueta(const QModelIndex & )));
     connect(ui->tableView_etiquetas, SIGNAL(doubleClicked(const QModelIndex & )), this, SLOT(eliminar_etiqueta(const QModelIndex &)));
-    reporte=new NCReport();
 }
 
 
@@ -45,6 +44,10 @@ void ui_producto::cambiarModeloOtros()
 {
     ui->tableView_productos->setModel(otros::mostrar());
 }
+void ui_producto::cambiarModeloTrabajosExtras()
+{
+    ui->tableView_productos->setModel(trabajosExtras::mostrar());
+}
 
 void ui_producto::on_comboBox_tipoProducto_currentIndexChanged(int index)
 {
@@ -57,6 +60,8 @@ void ui_producto::on_comboBox_tipoProducto_currentIndexChanged(int index)
         cambiarModeloLenteContacto();
     if(posicion==3)
         cambiarModeloOtros();
+    if(posicion==4)
+        cambiarModeloTrabajosExtras();
 }
 
 void ui_producto::on_pushButton_agregar_2_clicked()
@@ -89,6 +94,13 @@ void ui_producto::on_pushButton_agregar_2_clicked()
         form->show();
         connect(form,SIGNAL(guardado()),this,SLOT(cambiarModeloOtros()));
     }
+    if(posicion==4)
+    {
+        ui_trabajosExtras* form=new ui_trabajosExtras;
+        form->setWindowTitle("Nuevo Trabajo Extra");
+        form->show();
+        connect(form,SIGNAL(guardado()),this,SLOT(cambiarModeloTrabajosExtras()));
+    }
 }
 
 void ui_producto::on_pushButton_editar_clicked()
@@ -99,24 +111,20 @@ void ui_producto::on_pushButton_editar_clicked()
         if(posicion==0)
         {
             luna productoActual;
-            productoActual.setCodigo(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,0)).toString());
-            productoActual.setDescripcion(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,1)).toString());
-            estado pEstado;pEstado.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,2)).toString());pEstado.completar();
-            productoActual.setPrecioCompra(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,3)).toString());
-            productoActual.setPrecioVenta(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,4)).toString());
-            productoActual.setPrecioDescuento(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,5)).toString());
-            productoActual.setStock(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,6)).toString());
-            marca pMarca;pMarca.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,7)).toString());pMarca.completar();
-            diametro pDiametro;pDiametro.setValor(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,8)).toString());pDiametro.completar();
-            calidad pCalidad;pCalidad.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,9)).toString());pCalidad.completar();
-            tipoLuna pTipoLuna;pTipoLuna.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,10)).toString());pTipoLuna.completar();
-            tratamiento pTratamiento;pTratamiento.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,11)).toString());pTratamiento.completar();
-            productoActual.setValorInicial(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,12)).toString());
-            productoActual.setValorFinal(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,13)).toString());
-            productoActual.setLado(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,14)).toString());
-            productoActual.setPrecio(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,15)).toString());
+            productoActual.setDescripcion(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,0)).toString());
+            estado pEstado;pEstado.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,1)).toString());pEstado.completar();
+            productoActual.setPrecioCompra(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,2)).toString());
+            productoActual.setPrecioVenta(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,3)).toString());
+            productoActual.setPrecioDescuento(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,4)).toString());
+            productoActual.setStock(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,5)).toString());
+            diametro pDiametro;pDiametro.setValor(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,6)).toString());pDiametro.completar();
+            calidad pCalidad;pCalidad.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,7)).toString());pCalidad.completar();
+            tipoLuna pTipoLuna;pTipoLuna.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,8)).toString());pTipoLuna.completar();
+            tratamiento pTratamiento;pTratamiento.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,9)).toString());pTratamiento.completar();
+            productoActual.setValorInicial(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,10)).toString());
+            productoActual.setValorFinal(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,11)).toString());
+            productoActual.setPrecio(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,12)).toString());
             productoActual.setEstado(pEstado);
-            productoActual.setMarca(pMarca);
             productoActual.setDiametro(pDiametro);
             productoActual.setCalidad(pCalidad);
             productoActual.setTipoLuna(pTipoLuna);
@@ -226,6 +234,20 @@ void ui_producto::on_pushButton_editar_clicked()
             form->show();
             connect(form,SIGNAL(guardado()),this,SLOT(cambiarModeloOtros()));
         }
+        if(posicion==4)
+        {
+            trabajosExtras actual;
+            actual.setDescripcion(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,0)).toString());
+            actual.setPrecio(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,1)).toString());
+            actual.completar();
+
+            ui_trabajosExtras* form=new ui_trabajosExtras;
+            form->setTrabajosExtras(&actual);
+            form->setModo(true);
+            form->setWindowTitle("Editar Trabajo Extra");
+            form->show();
+            connect(form,SIGNAL(guardado()),this,SLOT(cambiarModeloTrabajosExtras()));
+        }
     }
 }
 
@@ -248,24 +270,20 @@ void ui_producto::on_pushButton_eliminar_clicked()
                 if(posicion==0)
                 {
                     luna productoActual;
-                    productoActual.setCodigo(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,0)).toString());
-                    productoActual.setDescripcion(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,1)).toString());
-                    estado pEstado;pEstado.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,2)).toString());pEstado.completar();
-                    productoActual.setPrecioCompra(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,3)).toString());
-                    productoActual.setPrecioVenta(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,4)).toString());
-                    productoActual.setPrecioDescuento(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,5)).toString());
-                    productoActual.setStock(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,6)).toString());
-                    marca pMarca;pMarca.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,7)).toString());pMarca.completar();
-                    diametro pDiametro;pDiametro.setValor(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,8)).toString());pDiametro.completar();
-                    calidad pCalidad;pCalidad.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,9)).toString());pCalidad.completar();
-                    tipoLuna pTipoLuna;pTipoLuna.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,10)).toString());pTipoLuna.completar();
-                    tratamiento pTratamiento;pTratamiento.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,11)).toString());pTratamiento.completar();
-                    productoActual.setValorInicial(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,12)).toString());
-                    productoActual.setValorFinal(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,13)).toString());
-                    productoActual.setLado(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,14)).toString());
-                    productoActual.setPrecio(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,15)).toString());
+                    productoActual.setDescripcion(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,0)).toString());
+                    estado pEstado;pEstado.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,1)).toString());pEstado.completar();
+                    productoActual.setPrecioCompra(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,2)).toString());
+                    productoActual.setPrecioVenta(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,3)).toString());
+                    productoActual.setPrecioDescuento(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,4)).toString());
+                    productoActual.setStock(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,5)).toString());
+                    diametro pDiametro;pDiametro.setValor(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,6)).toString());pDiametro.completar();
+                    calidad pCalidad;pCalidad.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,7)).toString());pCalidad.completar();
+                    tipoLuna pTipoLuna;pTipoLuna.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,8)).toString());pTipoLuna.completar();
+                    tratamiento pTratamiento;pTratamiento.setNombre(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,9)).toString());pTratamiento.completar();
+                    productoActual.setValorInicial(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,10)).toString());
+                    productoActual.setValorFinal(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,11)).toString());
+                    productoActual.setPrecio(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,12)).toString());
                     productoActual.setEstado(pEstado);
-                    productoActual.setMarca(pMarca);
                     productoActual.setDiametro(pDiametro);
                     productoActual.setCalidad(pCalidad);
                     productoActual.setTipoLuna(pTipoLuna);
@@ -359,6 +377,16 @@ void ui_producto::on_pushButton_eliminar_clicked()
                     productoActual.eliminar();
                     cambiarModeloOtros();
                 }
+                if(posicion==4)
+                {
+                    trabajosExtras actual;
+                    actual.setDescripcion(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,0)).toString());
+                    actual.setPrecio(ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,1)).toString());
+                    actual.completar();
+
+                    actual.eliminar();
+                    cambiarModeloTrabajosExtras();
+                }
             }
             case QMessageBox::Cancel:
                 break;
@@ -373,6 +401,26 @@ void ui_producto::on_pushButton_eliminar_clicked()
 
 void ui_producto::agregar_etiqueta(const QModelIndex &model)
 {
+    if(posicion==0)
+    {
+        QMessageBox box;
+        box.setIcon(QMessageBox::Warning);
+        box.setWindowTitle("Advertencia");
+        box.setText("Las Lunas no se pueden etiquetar!");
+        box.setStandardButtons(QMessageBox::Ok);
+        box.exec();
+        return;
+    }
+    if(posicion==4)
+    {
+        QMessageBox box;
+        box.setIcon(QMessageBox::Warning);
+        box.setWindowTitle("Advertencia");
+        box.setText("Los Trabajos Extras no se pueden etiquetar!");
+        box.setStandardButtons(QMessageBox::Ok);
+        box.exec();
+        return;
+    }
     int fila=model.row();
     if(fila!=-1)
     {
@@ -402,29 +450,23 @@ void ui_producto::agregar_etiqueta(const QModelIndex &model)
             }
         if(codigo.size()==0)
             return;
-        if(posicion==0)
-        {
-            color=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,10)).toString();//tipo luna
-            calidad=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,11)).toString();
-            precio=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,3)).toString();
-        }
         if(posicion==1)
         {
             color=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,9)).toString();
             calidad=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,11)).toString();
-            precio=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,3)).toString();
+            precio=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,4)).toString();
         }
         if(posicion==2)
         {
             color=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,9)).toString();//tinte visibilidad
             calidad=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,7)).toString();//marca
-            precio=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,3)).toString();
+            precio=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,4)).toString();
         }
         if(posicion==3)
         {
             color=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,8)).toString();
             calidad=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,10)).toString();
-            precio=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,3)).toString();
+            precio=ui->tableView_productos->model()->data(ui->tableView_productos->model()->index(fila,4)).toString();
         }
         t.setCodigo(codigo);
         t.setColor(color);
@@ -468,15 +510,21 @@ void ui_producto::on_pushButton_previsualizar_clicked()
     for(int i=0;i<etiquetas.size();i++)
     {
         QImage tmp("etiquetas/imagenes/"+etiquetas[i].getCodigo()+".png");
-        //QImage imagen=tmp.scaledToHeight(100);
-        QImage imagen=tmp.scaledToHeight(60);
-        p.drawImage((200*k)+60,(100*j)+30,imagen);
+        //QImage imagen=tmp.scaledToHeight(60);
+        QImage imagen=tmp.scaledToHeight(80);
+        /*p.drawImage((200*k)+60,(100*j)+30,imagen);
         p.drawText((200*k)+60,(100*j)+105,etiquetas[i].getColor());
         p.drawText((200*k)+130,(100*j)+105,etiquetas[i].getCalidad());
         p.drawText((200*k)+60,(100*j)+121,etiquetas[i].getUbicacion());
-        p.drawText((200*k)+130,(100*j)+121,"S/."+etiquetas[i].getPrecio());
+        p.drawText((200*k)+130,(100*j)+121,"S/."+etiquetas[i].getPrecio());*/
+        p.drawImage((500*k)+220,(100*j)+30,imagen);
+        p.drawText((500*k)+440,(100*j)+46,etiquetas[i].getCodigo());
+        p.drawText((500*k)+440,(100*j)+62,etiquetas[i].getColor());
+        p.drawText((500*k)+510,(100*j)+62,etiquetas[i].getCalidad());
+        p.drawText((500*k)+440,(100*j)+78,etiquetas[i].getUbicacion());
+        p.drawText((500*k)+510,(100*j)+78,"S/."+etiquetas[i].getPrecio());
 
-        if(k==5)
+        if(k==1)
         {
             k=-1;
             j++;
@@ -515,10 +563,25 @@ void ui_producto::on_pushButton_previsualizar_clicked()
 
 void ui_producto::on_pushButton_imprimir_clicked()
 {
-    reporte->reset(true);
-    QString filename("etiquetas");
-    reporte->setReportFile(filename);
-    reporte->addParameter("id",QVariant("value"));
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setFullPage(QPrinter::A4);
+    printer.setOutputFileName("etiquetas.pdf");
+    QPainter painter;
+    if (! painter.begin(&printer))
+        qWarning("failed to open file, is it writable?");
+    QImage act("etiquetas/0.png");
+    act=act.scaledToWidth(9000);
+    painter.drawImage(0,0,act);
+    painter.end();
+    QTextEdit parent;
+    QPrintDialog*dlg = new QPrintDialog(&printer,&parent);
+    dlg->setWindowTitle(QObject::tr("Print Document"));
+
+    if(dlg->exec() == QDialog::Accepted) {
+        parent.print(&printer);
+    }
+    delete dlg;
 }
 
 void ui_producto::on_pushButton_anterior_clicked()

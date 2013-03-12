@@ -2,7 +2,6 @@
 
 tipodoc_ident::tipodoc_ident()
 {
-
 }
 
 QString tipodoc_ident::getIdTipoDocIdent()
@@ -43,14 +42,14 @@ bool tipodoc_ident::eliminar()
 QSqlQueryModel* tipodoc_ident::mostrar()
 {
     QSqlQueryModel* model=new QSqlQueryModel;
-    model->setQuery("select Descripcion from Documento");
+    model->setQuery("select nombre from Documento");
     return model;
 }
 
 bool tipodoc_ident::buscar()
 {
     QSqlQuery query;
-    query.prepare("select * from Documento where Descripcion='"+nombre+"'");
+    query.prepare("select * from Documento where nombre='"+nombre+"'");
     if(query.exec())
     {
         if(query.size()!=0)

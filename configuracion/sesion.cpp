@@ -43,10 +43,10 @@ void Sesion::Configurar(int nminI,int nmaxI,int tEspera)
  */
 int Sesion::Iniciar(QString user, QString pass)
 {
-    /*if(sleep&&tiempoBloqueo.elapsed()<tiempoEspera) ///<Si el incio de sesion esta dentro de el tiempo de bloqueo
+    if(sleep&&tiempoBloqueo.elapsed()<tiempoEspera) ///<Si el incio de sesion esta dentro de el tiempo de bloqueo
         return Sesion::SleepTime;                   ///<Retorna bloqueo
     QSqlQuery q;
-    bool ok = q.exec("call verify_usrpass('"+user+"','"+pass+"')"); ///<Verifica si el usuario y el pass estan registrados
+    bool ok = q.exec("select * from Colaborador where usuario = '"+user+"'and contrasena = MD5('"+pass+"')"); ///<Verifica si el usuario y el pass estan registrados
     if(!ok) qDebug()<<q.lastError().text();
     if(!q.next())                                   ///<Si no se producen resultados
     {
@@ -77,7 +77,7 @@ int Sesion::Iniciar(QString user, QString pass)
     mp_instance = new Sesion(usr);
     intentos = 0;
     if(rec.value("reset_pass").toBool())    ///<se verifica si se requiere cambio de contraseña
-        return Sesion::ResetPass;*/
+        return Sesion::ResetPass;
     return Sesion::inicioOK;
 }
 
@@ -93,9 +93,9 @@ Sesion * Sesion::getSesion()
 std::map<int,bool> Sesion::get_Permisos()
 {
     std::map<int,bool> res;
-    QSqlQuery q("select acceso, id_sys_modulo from sys_acceso where idcolaborador = "+QString::number(s_user->get_id())+" order by id_sys_modulo");
+    QSqlQuery q("select habilitado,FuncionModulo_idFuncionModulo from Permiso where Colaborador_Persona_idPersona = "+QString::number(s_user->get_id())+" order by FuncionModulo_idFuncionModulo");
     if(!q.exec())
-       QMessageBox::critical(0,"Error",q.lastError().text(),0,0);
+        QMessageBox::critical(0,"Error",q.lastError().text(),0,0);
     while(q.next())
     {
         res[q.value(1).toInt()] = (q.value(0).toBool());

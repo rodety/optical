@@ -7,8 +7,8 @@ class medidasHistorial:public ObjetoPersistente
 {
 private:
     QString idMedidasHistorial;
-    QString esferico;
-    QString cilindrico;
+    QString esferico;//variable
+    QString cilindrico;//variable
     QString eje;
     QString distanciaPupilar;
 public:

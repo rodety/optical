@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label_tiulo">
      <property name="text">
-      <string>Montura :</string>
+      <string>Otro Producto :</string>
      </property>
     </widget>
    </item>
@@ -269,7 +269,7 @@
       </widget>
      </item>
      <item row="3" column="3">
-      <widget class="QLabel" name="label_30">
+      <widget class="QLabel" name="label_estado">
        <property name="text">
         <string>Estado</string>
        </property>

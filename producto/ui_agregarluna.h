@@ -24,7 +24,6 @@ signals:
     void guardado();
 private slots:
     void on_pushButton_aceptar_clicked();
-    void on_pushButton_xMarca_clicked();
     void on_pushButton_xDiametro_clicked();
     void on_pushButton_xCalidad_clicked();
     void on_pushButton_xTipoLuna_clicked();

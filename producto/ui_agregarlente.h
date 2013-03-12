@@ -24,6 +24,22 @@ signals:
 private slots:
     void on_pushButton_aceptar_clicked();
 
+    void on_pushButton_xMarca_clicked();
+
+    void on_pushButton_xTipoLente_clicked();
+
+    void on_pushButton_xPotencia_clicked();
+
+    void on_pushButton_xCurvaBase_clicked();
+
+    void on_pushButton_xDiametro_clicked();
+
+    void on_pushButton_xTiempoUso_clicked();
+
+    void on_pushButton_xMaterial_clicked();
+
+    void on_pushButton_xEstado_clicked();
+
 private:
     Ui::ui_agregarLente *ui;
     bool modo;//0 agregar 1 actualizar

@@ -6,12 +6,12 @@
 #include <producto/ui_agregarmontura.h>
 #include <producto/ui_agregarlente.h>
 #include <producto/ui_agregarotros.h>
+#include <extras/ui_trabajosextras.h>
 
-#include <etiqueta.h>
-#include "include/ncreport.h"
-#include "include/ncreportoutput.h"
-#include "include/ncreportpreviewoutput.h"
-#include "include/ncreportpreviewwindow.h"
+#include <extras/etiqueta.h>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QTextEdit>
 
 namespace Ui {
 class ui_producto;
@@ -30,6 +30,7 @@ private slots:
     void cambiarModeloMontura();
     void cambiarModeloLenteContacto();
     void cambiarModeloOtros();
+    void cambiarModeloTrabajosExtras();
     void on_comboBox_tipoProducto_currentIndexChanged(int index);
     void on_pushButton_agregar_2_clicked();
     void on_pushButton_editar_clicked();
@@ -48,7 +49,6 @@ private:
     int posicion;
 
     QList<etiqueta> etiquetas;
-    NCReport * reporte;
 
     int act;
     int pag;

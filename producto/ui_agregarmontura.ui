@@ -324,7 +324,7 @@
       </widget>
      </item>
      <item row="6" column="3">
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="label_estado">
        <property name="text">
         <string>Estado</string>
        </property>

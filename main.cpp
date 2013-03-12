@@ -4,7 +4,7 @@
 #include "configuracion/conexionbd.h"
 #include "configuracion/sesion.h"
 #include "configuracion/configurador.h"
-#include "configuracion/configprogram.h"
+#include "configuracion/dialoglogin.h"
 
 #include <QMessageBox>
 #include <QTextCodec>
@@ -42,15 +42,27 @@ int main(int argc,char *argv[])
     if(config.conectar_db())
     {
         Sesion::Configurar(3,10,6000);
-        UI_LOGIN* login = new UI_LOGIN;
+        DialogLogin * log = new DialogLogin;
+        log->exec();
+        if(log->getOk())
+        {
+            MainWindow *MAIN_WINDOW;
+            MAIN_WINDOW = new MainWindow;
+            MAIN_WINDOW->showMaximized();
+        }
         splash.close();
-        login->show();
+        delete log;
     }
     else
     {
-        ConfigProgram* windowConfig =  new ConfigProgram;
-        windowConfig->show();
+//        ConfigProgram* windowConfig =  new ConfigProgram;
+//        windowConfig->show();
     }
 
     return a.exec();
 }
+
+
+
+
+

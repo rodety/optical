@@ -24,6 +24,16 @@ signals:
 private slots:
     void on_pushButton_agregar_clicked();
 
+    void on_pushButton_xmarca_clicked();
+
+    void on_pushButton_xcalidad_clicked();
+
+    void on_pushButton_xcolor_clicked();
+
+    void on_pushButton_xestado_clicked();
+
+    void on_pushButton_xtalla_clicked();
+
 private:
     Ui::ui_agregarOtros *ui;
     bool modo;//0 agregar 1 actualizar

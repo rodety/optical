@@ -11,8 +11,9 @@ QT      += network
 TARGET = opticalManager
 TEMPLATE = app
 DEFINES += NCREPORT_IMPORT
+
 unix {
-    LIBS += -lncreport -Llib -L/usr/local/bin
+    LIBS += -lncreport -L lib -L/usr/local/bin
     LIBS += -lzint
     target.path = /usr/local/bin
 }
@@ -21,21 +22,14 @@ win32-g++: {
     debug: LIBS += nc/libncreportd2.a
     target.path = bin
 } else {
-  win32: LIBS += ncreport2.lib
-  target.path = bin
+    win32: LIBS += ncreport2.lib
+    target.path = bin
 }
 
 INCLUDEPATH += include
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    configuracion/ui_login.cpp \
-    configuracion/sesion.cpp \
-    configuracion/configurador.cpp \
-    configuracion/configprogram.cpp \
-    configuracion/conexionbd.cpp \
-    configuracion/usuario.cpp \
-    configuracion/ui_cambiarpassdialog.cpp \
     producto/ui_producto.cpp \
     objetopersistente.cpp \
     producto/producto.cpp \
@@ -72,16 +66,38 @@ SOURCES += main.cpp\
     producto/talla.cpp \
     producto/otros.cpp \
     producto/ui_agregarotros.cpp \
-    etiqueta.cpp
+    extras/etiqueta.cpp \
+    extras/trabajosextras.cpp \
+    extras/ui_trabajosextras.cpp \
+    vitrina/vitrina.cpp \
+    vitrina/ui_vitrina_agregar.cpp \
+    vitrina/ui_traspaso_almacen.cpp \
+    vitrina/ui_tienda.cpp \
+    vitrina/ui_andamio_datos.cpp \
+    vitrina/ui_almacen.cpp \
+    vitrina/tienda.cpp \
+#    vitrina/forma.cpp \
+    vitrina/empresa.cpp \
+    vitrina/ui_item_posicion.cpp \
+    vitrina/item_posicion.cpp \
+    vitrina/andamio.cpp \
+    vitrina/ui_almacen_datos.cpp \
+    vitrina/ui_contenedor_datos.cpp \
+    vitrina/almacen.cpp \
+    vitrina/contenedor.cpp \
+    vitrina/ui_tienda_agregar.cpp \
+    configuracion/usuariosform.cpp \
+    configuracion/usuario.cpp \
+    configuracion/ui_login.cpp \
+    configuracion/ui_cambiarpassdialog.cpp \
+    configuracion/sesion.cpp \
+    configuracion/dialoglogin.cpp \
+    configuracion/dialogbuscarusuarios.cpp \
+    configuracion/configurador.cpp \
+    configuracion/conexionbd.cpp
 
 HEADERS  += mainwindow.h \
-    configuracion/ui_login.h \
-    configuracion/sesion.h \
-    configuracion/configurador.h \
     configuracion/configprogram.h \
-    configuracion/conexionbd.h \
-    configuracion/usuario.h \
-    configuracion/ui_cambiarpassdialog.h \
     producto/ui_producto.h \
     objetopersistente.h \
     producto/producto.h \
@@ -118,12 +134,37 @@ HEADERS  += mainwindow.h \
     producto/talla.h \
     producto/otros.h \
     producto/ui_agregarotros.h \
-    etiqueta.h
+    extras/etiqueta.h \
+    extras/trabajosextras.h \
+    extras/ui_trabajosextras.h \
+    vitrina/vitrina.h \
+    vitrina/ui_traspaso_almacen.h \
+    vitrina/ui_tienda_agregar.h \
+    vitrina/ui_tienda.h \
+    vitrina/ui_andamio_datos.h \
+    vitrina/ui_almacen.h \
+    vitrina/tienda.h \
+    vitrina/empresa.h \
+    vitrina/ui_vitrina_agregar.h \
+    vitrina/ui_item_posicion.h \
+    vitrina/item_posicion.h \
+    vitrina/andamio.h \
+    vitrina/ui_almacen_datos.h \
+    vitrina/ui_contenedor_datos.h \
+    vitrina/almacen.h \
+    vitrina/contenedor.h \
+    vitrina/ui_ui_almacen_datos.h \
+    configuracion/usuariosform.h \
+    configuracion/usuario.h \
+    configuracion/ui_login.h \
+    configuracion/ui_cambiarpassdialog.h \
+    configuracion/sesion.h \
+    configuracion/dialoglogin.h \
+    configuracion/dialogbuscarusuarios.h \
+    configuracion/configurador.h \
+    configuracion/conexionbd.h
 
 FORMS    += mainwindow.ui \
-    configuracion/ui_login.ui \
-    configuracion/configprogram.ui \
-    configuracion/ui_cambiarpassdialog.ui \
     producto/ui_producto.ui \
     producto/ui_agregarmontura.ui \
     producto/ui_agregarluna.ui \
@@ -132,7 +173,24 @@ FORMS    += mainwindow.ui \
     cliente/ui_cliente_datos.ui \
     cliente/ui_cliente.ui \
     producto/ui_agregarlente.ui \
-    producto/ui_agregarotros.ui
+    producto/ui_agregarotros.ui \
+    extras/ui_trabajosextras.ui \
+    vitrina/ui_vitrina_agregar.ui \
+    vitrina/ui_traspaso_almacen.ui \
+    vitrina/ui_tienda.ui \
+    vitrina/ui_andamio_datos.ui \
+    vitrina/ui_almacen.ui \
+    vitrina/ui_item_posicion.ui \
+    vitrina/ui_contenedor_datos.ui \
+    vitrina/ui_tienda_agregar.ui \
+    configuracion/usuariosform.ui \
+    configuracion/ui_login.ui \
+    configuracion/ui_cambiarpassdialog.ui \
+    configuracion/dialoglogin.ui \
+    configuracion/dialogbuscarusuarios.ui
 
 RESOURCES += \
-    Icons/Icons.qrc
+    Icons/Icons.qrc \
+
+OTHER_FILES += \
+    configuracion/config.ini

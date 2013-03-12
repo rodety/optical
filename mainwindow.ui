@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>594</width>
-    <height>348</height>
+    <width>969</width>
+    <height>408</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>594</width>
+     <width>969</width>
      <height>25</height>
     </rect>
    </property>
@@ -43,6 +43,11 @@
    <addaction name="actionProducto"/>
    <addaction name="actionUsuario"/>
    <addaction name="actionCliente"/>
+   <addaction name="actionVitrina"/>
+   <addaction name="actionAlmacen"/>
+   <addaction name="actionCompras"/>
+   <addaction name="actionReportes"/>
+   <addaction name="actionVentas"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionProducto">
@@ -88,6 +93,66 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+C</string>
+   </property>
+  </action>
+  <action name="actionVitrina">
+   <property name="icon">
+    <iconset resource="Icons/Icons.qrc">
+     <normaloff>:/Icons/inventory-maintenance.png</normaloff>:/Icons/inventory-maintenance.png</iconset>
+   </property>
+   <property name="text">
+    <string>Vitrina</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+V</string>
+   </property>
+  </action>
+  <action name="actionAlmacen">
+   <property name="icon">
+    <iconset resource="Icons/Icons.qrc">
+     <normaloff>:/Icons/file-roller.png</normaloff>:/Icons/file-roller.png</iconset>
+   </property>
+   <property name="text">
+    <string>Almacen</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+A</string>
+   </property>
+  </action>
+  <action name="actionCompras">
+   <property name="icon">
+    <iconset resource="Icons/Icons.qrc">
+     <normaloff>:/Icons/shopping-cart_basic_blue.png</normaloff>:/Icons/shopping-cart_basic_blue.png</iconset>
+   </property>
+   <property name="text">
+    <string>Compras</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+O</string>
+   </property>
+  </action>
+  <action name="actionReportes">
+   <property name="icon">
+    <iconset resource="Icons/Icons.qrc">
+     <normaloff>:/Icons/abiword.png</normaloff>:/Icons/abiword.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reportes</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+R</string>
+   </property>
+  </action>
+  <action name="actionVentas">
+   <property name="icon">
+    <iconset resource="Icons/Icons.qrc">
+     <normaloff>:/Icons/ticket.png</normaloff>:/Icons/ticket.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ventas</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+N</string>
    </property>
   </action>
  </widget>
